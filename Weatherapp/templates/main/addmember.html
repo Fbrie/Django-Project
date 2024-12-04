@@ -1,0 +1,53 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration and Weather</title>
+</head>
+<body>
+    <h1>Weather Information</h1>
+
+    <!-- Display weather data if it exists -->
+    {% if data %}
+        <h2>Weather in {{ city }}</h2>
+        <p>Country: {{ data.country_code }}</p>
+        <p>Coordinates: {{ data.coordinate }}</p>
+        <p>Temperature: {{ data.temp }}</p>
+        <p>Pressure: {{ data.pressure }} hPa</p>
+        <p>Humidity: {{ data.humidity }}%</p>
+        <p>Main Weather: {{ data.main }}</p>
+        <p>Description: {{ data.description }}</p>
+        <img src="http://openweathermap.org/img/wn/{{ data.icon }}.png" alt="Weather Icon">
+    {% else %}
+        <p>No data available. Please enter a city to get weather info.</p>
+    {% endif %}
+
+    <hr>
+
+    <h1>Register an Account</h1>
+
+    <!-- Display success or error messages -->
+    {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!-- User registration form -->
+    <form method="POST">
+        {% csrf_token %}
+        
+        <h2>User Information</h2>
+        {{ user_form.as_p }}  <!-- Render user form fields -->
+
+        <h2>Profile Information</h2>
+        {{ profile_form.as_p }}  <!-- Render profile form fields -->
+
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>

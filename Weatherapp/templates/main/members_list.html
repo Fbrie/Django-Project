@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Members List</title>
+</head>
+<body>
+    <h1>Members List</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone Number</th> <!-- Optional if using Profile model -->
+                <th>Address</th> <!-- Optional if using Profile model -->
+                <th>Details</th> <!-- Column for the 'Detail' link -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.first_name }} {{ user.last_name }}</td>
+                <td>{{ user.email }}</td>
+                <!-- Optional if using Profile model -->
+                <td>{{ user.profile.phone_number }}</td>
+                <td>{{ user.profile.address }}</td>
+                <td><a href="{% url 'user_detail' user.id %}">View Details</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No members found</td> <!-- Ensure the colspan matches the number of columns -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
